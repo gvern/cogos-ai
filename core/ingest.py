@@ -24,9 +24,9 @@ DATA_FOLDERS = {
     "journal": "data/journal"
 }
 OUTPUT_JSONL = "ingested/memory.jsonl"
-EMBEDDING_DIM = 768
 EMBEDDING_INDEX = "embeddings/memory.index"
 EMBEDDING_MODEL = SentenceTransformer("all-MiniLM-L6-v2")
+EMBEDDING_DIM = EMBEDDING_MODEL.get_sentence_embedding_dimension()
 
 
 # === Extracteurs ===
@@ -119,8 +119,14 @@ def ingest():
 
     # Write vector index (FAISS)
     if vectors:
+        vectors_np = np.array(vectors).astype("float32")
+
+        if vectors_np.shape[1] != EMBEDDING_DIM:
+            raise ValueError(f"Inconsistent vector dimensions: got {vectors_np.shape[1]}, expected {EMBEDDING_DIM}")
+
         index = faiss.IndexFlatL2(EMBEDDING_DIM)
-        index.add(np.array(vectors).astype("float32"))
+        index.add(vectors_np)
+
         faiss.write_index(index, EMBEDDING_INDEX)
         print(f"✅ {len(vectors)} documents vectorisés et indexés.")
     else:

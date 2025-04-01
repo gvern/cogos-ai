@@ -1,1 +1,4 @@
 /venv
+/.env
+# Context memory (personal)
+memory/context_mcp.json

@@ -1,8 +1,13 @@
+import streamlit as st
+import pandas as pd
+import plotly.express as px
+import pandas as pd
+import plotly.express as px
+from pathlib import Path
+import json
+
 def render_timeline():
-    import pandas as pd
-    import plotly.express as px
-    from pathlib import Path
-    import json
+    
 
     memory_path = Path("ingested/memory.jsonl")
     if not memory_path.exists():

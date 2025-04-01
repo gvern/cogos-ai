@@ -1,10 +1,14 @@
 import json
 from pathlib import Path
 from openai import OpenAI
-import os
+from config.secrets import get_api_key
+
+
+client = OpenAI(api_key=get_api_key())
+
 
 MEMORY_PATH = "ingested/memory.jsonl"
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
 
 def summarize_by_tag(tag: str) -> str:
     if not Path(MEMORY_PATH).exists():
