@@ -1,4 +1,9 @@
-streamlit 
-plotly 
-pandas 
-openai 
+streamlit
+plotly
+pandas
+openai
+sentence-transformers
+faiss-cpu
+PyMuPDF
+ebooklib
+beautifulsoup4
