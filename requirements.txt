@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 streamlit
 plotly
 pandas
@@ -7,3 +8,9 @@ faiss-cpu
 PyMuPDF
 ebooklib
 beautifulsoup4
+=======
+streamlit 
+plotly 
+pandas 
+openai 
+>>>>>>> 8159adc914993503bf86350ffdcd5cb351b49b99

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import json
 import faiss
 import numpy as np
@@ -44,3 +45,8 @@ Donne une réponse claire, fidèle, et personnelle en français.
     )
 
     return response.choices[0].message.content.strip()
+=======
+def query_memory(query: str) -> str:
+    # Placeholder for RAG-based semantic retrieval
+    return f"🔍 I heard your question: '{query}'. Contextual memory search coming soon!"
+>>>>>>> 8159adc914993503bf86350ffdcd5cb351b49b99

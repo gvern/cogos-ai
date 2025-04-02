@@ -1,5 +1,6 @@
 import os
 import json
+<<<<<<< HEAD
 import fitz  # PyMuPDF
 import ebooklib
 from ebooklib import epub
@@ -18,11 +19,18 @@ import numpy as np
 SUPPORTED_TEXT_EXTENSIONS = [".md", ".txt"]
 SUPPORTED_PDF_EXTENSIONS = [".pdf"]
 SUPPORTED_EPUB_EXTENSIONS = [".epub"]
+=======
+from pathlib import Path
+from datetime import datetime
+
+SUPPORTED_EXTENSIONS = [".md", ".txt"]
+>>>>>>> 8159adc914993503bf86350ffdcd5cb351b49b99
 DATA_FOLDERS = {
     "notes": "data/notes",
     "books": "data/books",
     "journal": "data/journal"
 }
+<<<<<<< HEAD
 OUTPUT_JSONL = "ingested/memory.jsonl"
 EMBEDDING_INDEX = "embeddings/memory.index"
 EMBEDDING_MODEL = SentenceTransformer("all-MiniLM-L6-v2")
@@ -91,11 +99,29 @@ def ingest():
 
                 tags = extract_tags(cleaned)
 
+=======
+OUTPUT_PATH = "ingested/memory.jsonl"
+
+def extract_text(file_path):
+    with open(file_path, "r", encoding="utf-8") as f:
+        return f.read()
+
+def ingest():
+    Path("ingested").mkdir(exist_ok=True)
+
+    memory = []
+    for source_type, folder in DATA_FOLDERS.items():
+        folder_path = Path(folder)
+        for file in folder_path.glob("*"):
+            if file.suffix.lower() in SUPPORTED_EXTENSIONS:
+                content = extract_text(file)
+>>>>>>> 8159adc914993503bf86350ffdcd5cb351b49b99
                 metadata = {
                     "source": source_type,
                     "filename": file.name,
                     "path": str(file),
                     "created_at": datetime.fromtimestamp(file.stat().st_ctime).isoformat(),
+<<<<<<< HEAD
                     "modified_at": datetime.fromtimestamp(file.stat().st_mtime).isoformat(),
                     "tags": tags
                 }
@@ -134,6 +160,22 @@ def ingest():
 
     print(f"✅ Ingestion complète — {len(memory)} fichiers analysés.")
 
+=======
+                    "modified_at": datetime.fromtimestamp(file.stat().st_mtime).isoformat()
+                }
+                memory.append({
+                    "text": content.strip(),
+                    "metadata": metadata
+                })
+
+    # Sauvegarde en JSONL
+    with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
+        for entry in memory:
+            f.write(json.dumps(entry, ensure_ascii=False) + "\n")
+
+    print(f"✅ Ingestion terminée : {len(memory)} fichiers ingérés.")
+    print(f"📄 Résultat enregistré dans : {OUTPUT_PATH}")
+>>>>>>> 8159adc914993503bf86350ffdcd5cb351b49b99
 
 if __name__ == "__main__":
     ingest()

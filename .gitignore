@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Python
 __pycache__/
 *.py[cod]
@@ -35,3 +36,7 @@ env/
 # Project specific
 memory/context_mcp.json
 *.log
+=======
+/venv
+.env
+>>>>>>> 8159adc914993503bf86350ffdcd5cb351b49b99
