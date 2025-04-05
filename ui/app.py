@@ -45,24 +45,48 @@ with st.sidebar:
 
 st.markdown("""
 <style>
-body {
-    background-color: #0a0a0a;
-    color: #39FF14;
+/* Fond et police */
+body, .stApp {
+    background-color: #0b0c10;
+    color: #66fcf1;
+    font-family: 'Fira Code', monospace;
 }
-h1, h2, h3, h4 {
-    color: #00f0ff;
+/* Header */
+.header-title {
+    font-size: 32px;
+    color: #45a29e;
+    margin-bottom: 5px;
 }
-.stButton > button {
-    background-color: #0f0f0f;
-    color: #00f0ff;
-    border: 1px solid #00f0ff;
-}
-.stTextInput>div>div>input {
-    background-color: #1f1f1f;
-    color: white;
+/* Footer */
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #1f2833;
+    color: #c5c6c7;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 14px;
 }
 </style>
+<div class='header-title'>🧠 CogOS // Mode JARVIS Activé</div>
 """, unsafe_allow_html=True)
+
+# Ajout d’un footer animé
+st.markdown("""
+<footer>
+    ⏰ Heure actuelle : <span id='time'></span> · 🤖 CogOS prêt à réfléchir pour vous.
+</footer>
+<script>
+function updateTime() {
+    const now = new Date();
+    document.getElementById('time').textContent = now.toLocaleTimeString();
+}
+setInterval(updateTime, 1000);
+updateTime();
+</script>
+""", unsafe_allow_html=True)
+
 
 # === Tabs principaux ===
 tab_home, tab_query, tab_lifeline, tab_update, tab_memory, tab_reflect, tab_edit, tab_skills = st.tabs([
