@@ -10,3 +10,7 @@ beautifulsoup4
 fastapi
 uvicorn
 chromadb
+SpeechRecognition
+# pyaudio  # Optional - requires PortAudio, uncomment if needed
+# Alternative dependencies below don't require native libraries:
+sounddevice  # Alternative to pyaudio
