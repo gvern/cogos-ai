@@ -9,3 +9,4 @@ ebooklib
 beautifulsoup4
 fastapi
 uvicorn
+chromadb

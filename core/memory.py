@@ -1,34 +1,31 @@
-import json
-import faiss
-import numpy as np
+import chromadb
 from sentence_transformers import SentenceTransformer
+from config.secrets import get_api_key
 from openai import OpenAI
 from pathlib import Path
 
-EMBEDDING_DIM = 768
-INDEX_PATH = "embeddings/memory.index"
-MEMORY_PATH = "ingested/memory.jsonl"
 EMBEDDING_MODEL = SentenceTransformer("all-MiniLM-L6-v2")
+client = OpenAI(api_key=get_api_key())
 
-# Charge FAISS index + documents
-def load_memory():
-    index = faiss.read_index(INDEX_PATH)
-    with open(MEMORY_PATH, "r", encoding="utf-8") as f:
-        docs = [json.loads(line) for line in f]
-    return index, docs
+# Initialize ChromaDB client with the new API
+chroma_client = chromadb.PersistentClient(path="embeddings/chroma")
 
-# Requête mémoire par similarité + synthèse LLM
 def query_memory(query: str, top_k=5) -> str:
-    if not Path(INDEX_PATH).exists() or not Path(MEMORY_PATH).exists():
-        return "⚠️ Mémoire non disponible. Lancer `python core/ingest.py`."
+    try:
+        # Try to get the collection
+        collection = chroma_client.get_collection(name="cogos_memory")
+        
+        query_vec = EMBEDDING_MODEL.encode(query).tolist()
 
-    index, docs = load_memory()
-    query_vec = EMBEDDING_MODEL.encode(query, convert_to_numpy=True).astype("float32").reshape(1, -1)
-    scores, indices = index.search(query_vec, top_k)
+        results = collection.query(
+            query_embeddings=[query_vec],
+            n_results=top_k
+        )
 
-    context = "\n\n".join([f"- {docs[i]['text'][:500]}" for i in indices[0] if i < len(docs)])
+        docs = results["documents"][0]
+        context = "\n\n".join([f"- {doc[:500]}" for doc in docs])
 
-    prompt = f"""Tu es un assistant personnel qui puise dans les souvenirs de ton utilisateur. 
+        prompt = f"""Tu es un assistant personnel qui puise dans les souvenirs de ton utilisateur. 
 Voici ce que tu as trouvé en mémoire concernant la question : "{query}"
 
 {context}
@@ -36,11 +33,14 @@ Voici ce que tu as trouvé en mémoire concernant la question : "{query}"
 Donne une réponse claire, fidèle, et personnelle en français.
 """
 
-    # Utilise OpenAI (remplacer par Gemini ou local LLM si besoin)
-    client = OpenAI()
-    response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
-        messages=[{"role": "user", "content": prompt}]
-    )
+        response = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[{"role": "user", "content": prompt}]
+        )
 
-    return response.choices[0].message.content.strip()
+        return response.choices[0].message.content.strip()
+        
+    except (ValueError, chromadb.errors.NoIndexException) as e:
+        return "⚠️ Mémoire non disponible. Lancer `python core/ingest.py` pour indexer vos documents."
+    except Exception as e:
+        return f"⚠️ Erreur lors de la recherche en mémoire: {str(e)}"

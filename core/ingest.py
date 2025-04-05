@@ -1,6 +1,5 @@
 import os
 import json
-<<<<<<< HEAD
 import fitz  # PyMuPDF
 import ebooklib
 from ebooklib import epub
@@ -14,28 +13,24 @@ from openai import OpenAI  # Optionnel, remplacer si besoin
 from sentence_transformers import SentenceTransformer, util
 import faiss
 import numpy as np
+import chromadb
 
 # === Config ===
 SUPPORTED_TEXT_EXTENSIONS = [".md", ".txt"]
 SUPPORTED_PDF_EXTENSIONS = [".pdf"]
 SUPPORTED_EPUB_EXTENSIONS = [".epub"]
-=======
-from pathlib import Path
-from datetime import datetime
-
-SUPPORTED_EXTENSIONS = [".md", ".txt"]
->>>>>>> 8159adc914993503bf86350ffdcd5cb351b49b99
 DATA_FOLDERS = {
     "notes": "data/notes",
     "books": "data/books",
     "journal": "data/journal"
 }
-<<<<<<< HEAD
 OUTPUT_JSONL = "ingested/memory.jsonl"
 EMBEDDING_INDEX = "embeddings/memory.index"
 EMBEDDING_MODEL = SentenceTransformer("all-MiniLM-L6-v2")
 EMBEDDING_DIM = EMBEDDING_MODEL.get_sentence_embedding_dimension()
 
+# Initialize the new ChromaDB client
+chroma_client = chromadb.PersistentClient(path="embeddings/chroma")
 
 # === Extracteurs ===
 def extract_text_txt(path: Path) -> str:
@@ -99,29 +94,11 @@ def ingest():
 
                 tags = extract_tags(cleaned)
 
-=======
-OUTPUT_PATH = "ingested/memory.jsonl"
-
-def extract_text(file_path):
-    with open(file_path, "r", encoding="utf-8") as f:
-        return f.read()
-
-def ingest():
-    Path("ingested").mkdir(exist_ok=True)
-
-    memory = []
-    for source_type, folder in DATA_FOLDERS.items():
-        folder_path = Path(folder)
-        for file in folder_path.glob("*"):
-            if file.suffix.lower() in SUPPORTED_EXTENSIONS:
-                content = extract_text(file)
->>>>>>> 8159adc914993503bf86350ffdcd5cb351b49b99
                 metadata = {
                     "source": source_type,
                     "filename": file.name,
                     "path": str(file),
                     "created_at": datetime.fromtimestamp(file.stat().st_ctime).isoformat(),
-<<<<<<< HEAD
                     "modified_at": datetime.fromtimestamp(file.stat().st_mtime).isoformat(),
                     "tags": tags
                 }
@@ -143,39 +120,39 @@ def ingest():
         for entry in memory:
             f.write(json.dumps(entry, ensure_ascii=False) + "\n")
 
-    # Write vector index (FAISS)
-    if vectors:
-        vectors_np = np.array(vectors).astype("float32")
+    # Crée ou récupère une collection
+    collection = chroma_client.get_or_create_collection(name="cogos_memory")
 
-        if vectors_np.shape[1] != EMBEDDING_DIM:
-            raise ValueError(f"Inconsistent vector dimensions: got {vectors_np.shape[1]}, expected {EMBEDDING_DIM}")
+    # Vide l'ancienne indexation si besoin
+    try:
+        # Get all existing IDs in the collection
+        existing_ids = collection.get()["ids"]
+        if existing_ids:
+            # Delete all existing documents
+            collection.delete(ids=existing_ids)
+            print(f"🧹 {len(existing_ids)} anciens documents supprimés.")
+    except Exception as e:
+        print(f"⚠️ Aucun document précédent à supprimer: {e}")
 
-        index = faiss.IndexFlatL2(EMBEDDING_DIM)
-        index.add(vectors_np)
+    # Ajoute les documents à Chroma
+    for i, (text, vector, meta) in enumerate(zip([e["text"] for e in memory], vectors, metadata_list)):
+        # Convert the tags list to a string for ChromaDB compatibility
+        meta_copy = meta.copy()
+        if "tags" in meta_copy and isinstance(meta_copy["tags"], list):
+            meta_copy["tags"] = ", ".join(meta_copy["tags"])
+        
+        collection.add(
+            documents=[text],
+            embeddings=[vector.tolist()],
+            metadatas=[meta_copy],
+            ids=[f"doc_{i}"]
+        )
 
-        faiss.write_index(index, EMBEDDING_INDEX)
-        print(f"✅ {len(vectors)} documents vectorisés et indexés.")
-    else:
-        print("❌ Aucun vecteur généré.")
+    chroma_client.persist()
+    print(f"✅ {len(memory)} documents indexés dans Chroma.")
 
     print(f"✅ Ingestion complète — {len(memory)} fichiers analysés.")
 
-=======
-                    "modified_at": datetime.fromtimestamp(file.stat().st_mtime).isoformat()
-                }
-                memory.append({
-                    "text": content.strip(),
-                    "metadata": metadata
-                })
-
-    # Sauvegarde en JSONL
-    with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
-        for entry in memory:
-            f.write(json.dumps(entry, ensure_ascii=False) + "\n")
-
-    print(f"✅ Ingestion terminée : {len(memory)} fichiers ingérés.")
-    print(f"📄 Résultat enregistré dans : {OUTPUT_PATH}")
->>>>>>> 8159adc914993503bf86350ffdcd5cb351b49b99
 
 if __name__ == "__main__":
     ingest()
