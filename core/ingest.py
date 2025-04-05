@@ -121,6 +121,19 @@ def ingest():
     with open(OUTPUT_JSONL, "w", encoding="utf-8") as f:
         for entry in memory:
             f.write(json.dumps(entry, ensure_ascii=False) + "\n")
+    # Fusion avec historique navigateur si présent
+    HISTORY_PATH = "ingested/history.jsonl"
+    if Path(HISTORY_PATH).exists():
+        with open(HISTORY_PATH, encoding="utf-8") as f:
+            history_entries = [json.loads(line) for line in f]
+        memory.extend(history_entries)
+
+        # Réécrit memory.jsonl fusionné
+        with open(OUTPUT_JSONL, "w", encoding="utf-8") as f:
+            for entry in memory:
+                f.write(json.dumps(entry, ensure_ascii=False) + "\n")
+
+        print(f"🔗 Historique Chrome fusionné ({len(history_entries)} entrées).")
 
     # Crée ou récupère une collection
     collection = chroma_client.get_or_create_collection(name="cogos_memory")
