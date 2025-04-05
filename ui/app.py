@@ -149,12 +149,16 @@ with tab_memory:
         with open(memory_path, "r", encoding="utf-8") as f:
             entries = [json.loads(line) for line in f.readlines()]
         if entries:
+            source_filter = st.selectbox("Filtrer par source :", ["Toutes"] + sorted(set(e["metadata"]["source"] for e in entries)))
             for i, entry in enumerate(entries):
+                if source_filter != "Toutes" and entry["metadata"]["source"] != source_filter:
+                    continue
                 with st.expander(f"{i+1}. {entry['metadata']['filename']} ({entry['metadata']['source']})"):
                     st.markdown(f"**Source**: `{entry['metadata']['source']}`")
                     st.markdown(f"**Created**: {entry['metadata']['created_at']}")
                     st.markdown(f"**Modified**: {entry['metadata']['modified_at']}")
                     st.text_area("🧠 Content", value=entry["text"], height=150)
+        
         else:
             st.info("No entries found in memory.")
     else:
