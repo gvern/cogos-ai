@@ -22,8 +22,10 @@ SUPPORTED_EPUB_EXTENSIONS = [".epub"]
 DATA_FOLDERS = {
     "notes": "data/notes",
     "books": "data/books",
-    "journal": "data/journal"
+    "journal": "data/journal",
+    "local_files": "/Users/gustavevernay/Documents",  # Exemple : adapter ton chemin
 }
+
 OUTPUT_JSONL = "ingested/memory.jsonl"
 EMBEDDING_INDEX = "embeddings/memory.index"
 EMBEDDING_MODEL = SentenceTransformer("all-MiniLM-L6-v2")

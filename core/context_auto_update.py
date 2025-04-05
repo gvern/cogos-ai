@@ -4,9 +4,29 @@ from datetime import datetime
 from core.context_loader import get_raw_context, update_context
 from config.secrets import get_api_key
 from openai import OpenAI
+from core.reflector import reflect_on_last_entries
 
 MEMORY_PATH = Path("ingested/memory.jsonl")
 client = OpenAI(api_key=get_api_key())
+
+def update_context_intelligently():
+    ctx = get_raw_context()
+
+    # Auto-reflexion persistée
+    reflection = reflect_on_last_entries()
+    ctx["memory"]["last_reflection"] = reflection
+
+    # Exemple de progression par domaine (à automatiser plus tard)
+    ctx["progress"] = {
+        "Data Science": 85,
+        "Philosophie": 60,
+        "LLM": 95,
+        "Musique": 40,
+        "Vie perso": 70
+    }
+
+    update_context(ctx)
+    print("✅ Contexte enrichi avec réflexion et progression.")
 
 def summarize_recent_entries(n=5) -> str:
     if not MEMORY_PATH.exists():

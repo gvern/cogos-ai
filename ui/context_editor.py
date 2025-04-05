@@ -85,3 +85,13 @@ st.json(context)
 st.header("Memory Summary")
 summary = get_memory_summary()
 st.json(summary) 
+
+# Progression cognitive
+st.header("📡 Progression Cognitive")
+if "progress" in context:
+    for domain, score in context["progress"].items():
+        st.slider(f"{domain}", 0, 100, score, key=f"progress_{domain}")
+
+# Dernière réflexion
+st.header("🪞 Dernière synthèse")
+st.markdown(context.get("memory", {}).get("last_reflection", "Aucune réflexion enregistrée."))
