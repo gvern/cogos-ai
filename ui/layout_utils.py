@@ -15,11 +15,21 @@ from core.memory import query_memory
 from core.editor import load_memory, update_entry, delete_entry
 from core.reflector import reflect_on_last_entries, summarize_by_tag
 from core.briefing import generate_briefing
-from core.voice_input import listen_from_microphone
+from core.voice_input import listen_from_microphone, start_new_session
+from core.audio import speak_response, get_available_voices
 from visualizations.timeline import render_timeline
 from visualizations.competence_sphere import render_competence_sphere
-from core.context_loader import update_context, get_raw_context
+from core.context_loader import get_raw_context, update_context
 from datetime import date
+
+# Imports des nouveaux UI modules
+try:
+    from ui.agent_tab import render_agent_tab
+    from ui.context_update_tab import render_context_update_tab
+    HAS_EXTRA_TABS = True
+except ImportError:
+    HAS_EXTRA_TABS = False
+    st.warning("Les modules UI supplémentaires ne sont pas disponibles. Certains onglets seront désactivés.")
 
 #############################
 # Fonctions utilitaires
@@ -85,6 +95,9 @@ def render_main_layout():
     # Initialisation session state pour le mode conversation
     if "conversation" not in st.session_state:
         st.session_state["conversation"] = []
+    
+    if "voice_session_id" not in st.session_state:
+        st.session_state["voice_session_id"] = start_new_session()
 
     # Lecture du contexte
     ctx = get_raw_context()
@@ -107,10 +120,23 @@ def render_main_layout():
                 lottie_jarvis = None
 
     # Création des onglets
-    tab_home, tab_query, tab_lifeline, tab_update, tab_memory, tab_reflect, tab_edit, tab_skills, tab_chat = st.tabs([
-        "🏠 Dashboard", "💬 Query", "📆 Timeline", "🔄 Context Update",
-        "📂 Memory", "🧠 Reflection", "✏️ Edit Memory", "📡 Skills", "🚀 Conversation"
-    ])
+    if HAS_EXTRA_TABS:
+        tabs = st.tabs([
+            "🏠 Dashboard", "💬 Query", "📆 Timeline", "🔄 Context", 
+            "📂 Memory", "🧠 Reflection", "✏️ Edit Memory", "📡 Skills", 
+            "🧭 Agent", "🚀 Conversation"
+        ])
+        
+        tab_home, tab_query, tab_lifeline, tab_update, tab_memory, tab_reflect, tab_edit, tab_skills, tab_agent, tab_chat = tabs
+    else:
+        tabs = st.tabs([
+            "🏠 Dashboard", "💬 Query", "📆 Timeline", "🔄 Context", 
+            "📂 Memory", "🧠 Reflection", "✏️ Edit Memory", "📡 Skills", 
+            "🚀 Conversation"
+        ])
+        
+        tab_home, tab_query, tab_lifeline, tab_update, tab_memory, tab_reflect, tab_edit, tab_skills, tab_chat = tabs
+        tab_agent = None
 
     #########################
     # Onglet 1 : Home
@@ -163,38 +189,69 @@ def render_main_layout():
             st.session_state["conversation"].append({"role": "user", "content": query})
             st.session_state["conversation"].append({"role": "assistant", "content": response})
 
-            if st.button("🔊 Lire à voix haute"):
-                from core.audio import speak_response
-                speak_response(response)
+            # Options de lecture vocale
+            tts_col1, tts_col2 = st.columns([3, 1])
+            with tts_col1:
+                if st.button("🔊 Lire à voix haute"):
+                    with st.spinner("Génération de l'audio en cours..."):
+                        audio_file = speak_response(response)
+                        st.success(f"Audio généré : {audio_file}")
+            
+            with tts_col2:
+                # Sélection de la voix
+                voices = get_available_voices()
+                voice = st.selectbox("Voix", list(voices.keys()), key="voice_selector")
+                if st.button("🎧 Tester la voix"):
+                    with st.spinner(f"Test de la voix {voice}..."):
+                        speak_response(f"Bonjour, je suis la voix {voice}. Comment puis-je vous aider aujourd'hui ?", voice=voice)
     
         st.markdown("### 🗣️ Ou utiliser le micro :")
         voice_col1, voice_col2 = st.columns([3, 1])
+        
         with voice_col1:
             if st.button("🎙️ Parler à CogOS", help="Utilise le micro ou télécharge un fichier audio"):
                 with st.spinner("Écoute en cours..."):
-                    text = listen_from_microphone()
-                    if text:
-                        st.success(f"Tu as dit : {text}")
-                        response = query_memory(text)
+                    # Utiliser l'ID de session pour regrouper les enregistrements
+                    voice_result = listen_from_microphone(session_id=st.session_state["voice_session_id"])
+                    
+                    if voice_result and voice_result["text"]:
+                        st.success(f"Tu as dit : {voice_result['text']}")
+                        
+                        if voice_result["audio_file"]:
+                            st.audio(voice_result["audio_file"])
+                        
+                        # Obtenir la réponse
+                        response = query_memory(voice_result["text"])
                         st.write(response)
+                        
                         # Log conversation
-                        st.session_state["conversation"].append({"role": "user", "content": text})
+                        st.session_state["conversation"].append({"role": "user", "content": voice_result["text"]})
                         st.session_state["conversation"].append({"role": "assistant", "content": response})
+                        
+                        # Option de lecture à voix haute
+                        if st.button("🔊 Entendre la réponse"):
+                            voice = st.session_state.get("voice_preference", "nova")
+                            speak_response(response, voice=voice)
+        
         with voice_col2:
-            with st.expander("ℹ️ Info"):
-                st.markdown("""
-                **Installation audio :**
-                ```bash
-                # Option 1 - Avec micro (si disponible) :
-                pip install SpeechRecognition pyaudio
+            with st.expander("🔧 Options vocales"):
+                # Afficher les statistiques de session
+                st.markdown(f"**Session ID**: {st.session_state['voice_session_id']}")
                 
-                # Sur Mac, installer d'abord portaudio :
-                brew install portaudio
+                # Permettre de choisir une voix par défaut
+                voices = get_available_voices()
+                default_voice = st.selectbox(
+                    "Voix par défaut", 
+                    list(voices.keys()),
+                    index=list(voices.keys()).index("nova"),
+                    key="voice_preference"
+                )
                 
-                # Option 2 - Alternative sans dépendances natives :
-                pip install SpeechRecognition sounddevice
-                ```
-                """)
+                # Option pour démarrer une nouvelle session
+                if st.button("🆕 Nouvelle session"):
+                    st.session_state["voice_session_id"] = start_new_session()
+                    st.success(f"Nouvelle session créée: {st.session_state['voice_session_id']}")
+                    st.rerun()
 
     #########################
     # Onglet 3 : Timeline
@@ -204,14 +261,17 @@ def render_main_layout():
         render_timeline()
 
     #########################
-    # Onglet 4 : Update
+    # Onglet 4 : Update Contexte
     #########################
     with tab_update:
-        st.markdown("### 🔄 Mise à jour cognitive automatique")
-        if st.button("🧠 Mettre à jour mon contexte maintenant"):
-            with st.spinner("Mise à jour du contexte en cours..."):
-                update_context_intelligently()
-                st.success("✅ Contexte mis à jour avec succès !")
+        if HAS_EXTRA_TABS:
+            render_context_update_tab()
+        else:
+            st.markdown("### 🔄 Mise à jour cognitive automatique")
+            if st.button("🧠 Mettre à jour mon contexte maintenant"):
+                with st.spinner("Mise à jour du contexte en cours..."):
+                    update_context_intelligently()
+                    st.success("✅ Contexte mis à jour avec succès !")
 
     #########################
     # Onglet 5 : Memory
@@ -276,7 +336,14 @@ def render_main_layout():
         render_competence_sphere()
 
     #########################
-    # Onglet 9 : Conversation
+    # Onglet 9 : Agent
+    #########################
+    if HAS_EXTRA_TABS and tab_agent:
+        with tab_agent:
+            render_agent_tab()
+
+    #########################
+    # Onglet 10 : Conversation
     #########################
     with tab_chat:
         st.subheader("🚀 Mode Conversation")

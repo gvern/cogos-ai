@@ -1,0 +1,29 @@
+[
+  {
+    "title": "Consolider: Le Coll\u00e8ge des Bernardins propose plusieurs parcours acad\u00e9miques en th\u00e9ologie, philosophie et humanit\u00e9s destin\u00e9s \u00e0 diff\u00e9rents publics, tels que des s\u00e9minaristes, des la\u00efcs et des religieux. Ces parcours offrent des dipl\u00f4mes canoniques reconnus par le Vatican et l'\u00c9tat fran\u00e7ais, ainsi que des certificats sp\u00e9cifiques, comme ceux en \u00e9tudes juives ou en finance religieuse. Les formations peuvent \u00eatre suivies \u00e0 temps plein ou \u00e0 mi-temps, selon les disponibilit\u00e9s des participants, et n\u00e9cessitent un engagement important pour enrichir la vie intellectuelle et spirituelle des \u00e9tudiants.",
+    "description": "R\u00e9vise et synth\u00e9tise tes connaissances actuelles sur Le Coll\u00e8ge des Bernardins propose plusieurs parcours acad\u00e9miques en th\u00e9ologie, philosophie et humanit\u00e9s destin\u00e9s \u00e0 diff\u00e9rents publics, tels que des s\u00e9minaristes, des la\u00efcs et des religieux. Ces parcours offrent des dipl\u00f4mes canoniques reconnus par le Vatican et l'\u00c9tat fran\u00e7ais, ainsi que des certificats sp\u00e9cifiques, comme ceux en \u00e9tudes juives ou en finance religieuse. Les formations peuvent \u00eatre suivies \u00e0 temps plein ou \u00e0 mi-temps, selon les disponibilit\u00e9s des participants, et n\u00e9cessitent un engagement important pour enrichir la vie intellectuelle et spirituelle des \u00e9tudiants..",
+    "action_type": "consolidation",
+    "priority": 2,
+    "deadline": null,
+    "created_at": "2025-04-06T12:58:29.726631",
+    "completed": false
+  },
+  {
+    "title": "Exploration libre",
+    "description": "D\u00e9couvre un nouveau domaine qui pourrait enrichir ta base de connaissances.",
+    "action_type": "exploration",
+    "priority": 1,
+    "deadline": null,
+    "created_at": "2025-04-06T12:58:29.726651",
+    "completed": false
+  },
+  {
+    "title": "Exploration libre",
+    "description": "D\u00e9couvre un nouveau domaine qui pourrait enrichir ta base de connaissances.",
+    "action_type": "exploration",
+    "priority": 1,
+    "deadline": null,
+    "created_at": "2025-04-06T12:58:29.726654",
+    "completed": false
+  }
+]
