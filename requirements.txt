@@ -14,3 +14,4 @@ SpeechRecognition
 # pyaudio  # Optional - requires PortAudio, uncomment if needed
 # Alternative dependencies below don't require native libraries:
 sounddevice  # Alternative to pyaudio
+streamlit_lottie  # For Lottie animations in UI
