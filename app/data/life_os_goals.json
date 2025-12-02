@@ -1,0 +1,426 @@
+{
+  "categories": [
+    {
+      "id": "languages",
+      "name": "Langues",
+      "icon": "Languages",
+      "color": "blue"
+    },
+    {
+      "id": "home_skills",
+      "name": "Homme de maison",
+      "icon": "Hammer",
+      "color": "amber"
+    },
+    {
+      "id": "instruments",
+      "name": "Instruments",
+      "icon": "Music",
+      "color": "purple"
+    },
+    {
+      "id": "sport",
+      "name": "Sport",
+      "icon": "Dumbbell",
+      "color": "red"
+    },
+    {
+      "id": "intellectual",
+      "name": "Développement intellectuel",
+      "icon": "Brain",
+      "color": "indigo"
+    },
+    {
+      "id": "career_finance",
+      "name": "Vie pro / finances",
+      "icon": "Briefcase",
+      "color": "emerald"
+    },
+    {
+      "id": "social",
+      "name": "Vie personnelle & sociale",
+      "icon": "Users",
+      "color": "pink"
+    },
+    {
+      "id": "wellness",
+      "name": "Bien-être & équilibre",
+      "icon": "Heart",
+      "color": "teal"
+    },
+    {
+      "id": "projects",
+      "name": "Patrimoine / projets de vie",
+      "icon": "Home",
+      "color": "orange"
+    },
+    {
+      "id": "tech",
+      "name": "Projets Techniques",
+      "icon": "Code",
+      "color": "cyan"
+    }
+  ],
+  "goals": [
+    {
+      "id": "lang_es",
+      "categoryId": "languages",
+      "title": "Espagnol",
+      "status": "todo",
+      "progress": 0,
+      "notes": null,
+      "deadline": null
+    },
+    {
+      "id": "lang_br",
+      "categoryId": "languages",
+      "title": "Breton",
+      "status": "todo",
+      "progress": 0,
+      "notes": null,
+      "deadline": null
+    },
+    {
+      "id": "lang_it",
+      "categoryId": "languages",
+      "title": "Italien",
+      "status": "todo",
+      "progress": 0,
+      "notes": null,
+      "deadline": null
+    },
+    {
+      "id": "lang_la",
+      "categoryId": "languages",
+      "title": "Latin",
+      "status": "todo",
+      "progress": 0,
+      "notes": null,
+      "deadline": null
+    },
+    {
+      "id": "lang_gr",
+      "categoryId": "languages",
+      "title": "Grec",
+      "status": "todo",
+      "progress": 0,
+      "notes": null,
+      "deadline": null
+    },
+    {
+      "id": "lang_jp",
+      "categoryId": "languages",
+      "title": "Japonais",
+      "status": "todo",
+      "progress": 0,
+      "notes": null,
+      "deadline": null
+    },
+    {
+      "id": "lang_fr",
+      "categoryId": "languages",
+      "title": "Français",
+      "status": "completed",
+      "progress": 100,
+      "notes": null,
+      "deadline": null
+    },
+    {
+      "id": "lang_en",
+      "categoryId": "languages",
+      "title": "Anglais",
+      "status": "completed",
+      "progress": 100,
+      "notes": null,
+      "deadline": null
+    },
+    {
+      "id": "home_wood",
+      "categoryId": "home_skills",
+      "title": "Menuiserie",
+      "status": "todo",
+      "progress": 0,
+      "notes": null,
+      "deadline": null
+    },
+    {
+      "id": "home_stone",
+      "categoryId": "home_skills",
+      "title": "Taille de pierre",
+      "status": "todo",
+      "progress": 0,
+      "notes": null,
+      "deadline": null
+    },
+    {
+      "id": "home_garden",
+      "categoryId": "home_skills",
+      "title": "Jardinage",
+      "status": "todo",
+      "progress": 0,
+      "notes": null,
+      "deadline": null
+    },
+    {
+      "id": "home_cook",
+      "categoryId": "home_skills",
+      "title": "Cuisine ++",
+      "status": "todo",
+      "progress": 0,
+      "notes": null,
+      "deadline": null
+    },
+    {
+      "id": "home_mech",
+      "categoryId": "home_skills",
+      "title": "Mécanique",
+      "status": "todo",
+      "progress": 0,
+      "notes": null,
+      "deadline": null
+    },
+    {
+      "id": "inst_piano",
+      "categoryId": "instruments",
+      "title": "Piano",
+      "status": "todo",
+      "progress": 0,
+      "notes": null,
+      "deadline": null
+    },
+    {
+      "id": "inst_harm",
+      "categoryId": "instruments",
+      "title": "Harmonica",
+      "status": "todo",
+      "progress": 0,
+      "notes": null,
+      "deadline": null
+    },
+    {
+      "id": "inst_sing",
+      "categoryId": "instruments",
+      "title": "Chant",
+      "status": "todo",
+      "progress": 0,
+      "notes": null,
+      "deadline": null
+    },
+    {
+      "id": "sport_marathon",
+      "categoryId": "sport",
+      "title": "Marathon moins de 3h",
+      "status": "todo",
+      "progress": 0,
+      "notes": null,
+      "deadline": null
+    },
+    {
+      "id": "sport_ironman",
+      "categoryId": "sport",
+      "title": "Natation style Iron Man",
+      "status": "todo",
+      "progress": 0,
+      "notes": null,
+      "deadline": null
+    },
+    {
+      "id": "sport_handstand",
+      "categoryId": "sport",
+      "title": "Savoir marcher sur les mains",
+      "status": "todo",
+      "progress": 0,
+      "notes": null,
+      "deadline": null
+    },
+    {
+      "id": "sport_hspu",
+      "categoryId": "sport",
+      "title": "Faire 5 pompes en poirier",
+      "status": "todo",
+      "progress": 0,
+      "notes": null,
+      "deadline": null
+    },
+    {
+      "id": "sport_pushups",
+      "categoryId": "sport",
+      "title": "Faire 100 pompes d’affilée",
+      "status": "todo",
+      "progress": 0,
+      "notes": null,
+      "deadline": null
+    },
+    {
+      "id": "sport_pullups",
+      "categoryId": "sport",
+      "title": "Faire 15 tractions d’affilée",
+      "status": "todo",
+      "progress": 0,
+      "notes": null,
+      "deadline": null
+    },
+    {
+      "id": "sport_flag",
+      "categoryId": "sport",
+      "title": "Faire le flag",
+      "status": "todo",
+      "progress": 0,
+      "notes": null,
+      "deadline": null
+    },
+    {
+      "id": "sport_lever",
+      "categoryId": "sport",
+      "title": "Faire le front lever et planche",
+      "status": "todo",
+      "progress": 0,
+      "notes": null,
+      "deadline": null
+    },
+    {
+      "id": "sport_tennis",
+      "categoryId": "sport",
+      "title": "Tennis",
+      "status": "completed",
+      "progress": 100,
+      "notes": null,
+      "deadline": null
+    },
+    {
+      "id": "sport_golf",
+      "categoryId": "sport",
+      "title": "Golf handicap moins de 25",
+      "status": "in_progress",
+      "progress": 30,
+      "notes": "Actuellement autour de 30",
+      "deadline": null
+    },
+    {
+      "id": "int_read",
+      "categoryId": "intellectual",
+      "title": "Lecture / culture générale",
+      "status": "todo",
+      "progress": 0,
+      "notes": "Objectif de nombre de livres par an",
+      "deadline": null
+    },
+    {
+      "id": "int_philo",
+      "categoryId": "intellectual",
+      "title": "Philosophie, histoire, sciences",
+      "status": "todo",
+      "progress": 0,
+      "notes": null,
+      "deadline": null
+    },
+    {
+      "id": "int_write",
+      "categoryId": "intellectual",
+      "title": "Écriture",
+      "status": "todo",
+      "progress": 0,
+      "notes": "Journal, articles, livres ?",
+      "deadline": null
+    },
+    {
+      "id": "pro_career",
+      "categoryId": "career_finance",
+      "title": "Vision long terme carrière",
+      "status": "todo",
+      "progress": 0,
+      "notes": "Entrepreneuriat, expertise IA, enseignement ?",
+      "deadline": null
+    },
+    {
+      "id": "pro_finance",
+      "categoryId": "career_finance",
+      "title": "Objectifs financiers",
+      "status": "todo",
+      "progress": 0,
+      "notes": "Indépendance financière, investissements, patrimoine",
+      "deadline": null
+    },
+    {
+      "id": "soc_travel",
+      "categoryId": "social",
+      "title": "Voyages / expériences",
+      "status": "todo",
+      "progress": 0,
+      "notes": "Japon, Amérique Latine, etc.",
+      "deadline": null
+    },
+    {
+      "id": "soc_community",
+      "categoryId": "social",
+      "title": "Engagement communautaire / associatif",
+      "status": "todo",
+      "progress": 0,
+      "notes": null,
+      "deadline": null
+    },
+    {
+      "id": "soc_family",
+      "categoryId": "social",
+      "title": "Vie familiale, amicale, relationnelle",
+      "status": "todo",
+      "progress": 0,
+      "notes": null,
+      "deadline": null
+    },
+    {
+      "id": "well_meditation",
+      "categoryId": "wellness",
+      "title": "Méditation / spiritualité / introspection",
+      "status": "todo",
+      "progress": 0,
+      "notes": null,
+      "deadline": null
+    },
+    {
+      "id": "well_health",
+      "categoryId": "wellness",
+      "title": "Santé",
+      "status": "todo",
+      "progress": 0,
+      "notes": "Alimentation, sommeil, check-up médicaux",
+      "deadline": null
+    },
+    {
+      "id": "well_time",
+      "categoryId": "wellness",
+      "title": "Gestion du temps / productivité",
+      "status": "todo",
+      "progress": 0,
+      "notes": null,
+      "deadline": null
+    },
+    {
+      "id": "proj_restoration",
+      "categoryId": "projects",
+      "title": "Restauration / construction",
+      "status": "todo",
+      "progress": 0,
+      "notes": "Ex. chapelle, maison",
+      "deadline": null
+    },
+    {
+      "id": "proj_eco",
+      "categoryId": "projects",
+      "title": "Autonomie énergétique / écoresponsabilité",
+      "status": "todo",
+      "progress": 0,
+      "notes": null,
+      "deadline": null
+    },
+    {
+      "id": "tech_agent",
+      "categoryId": "tech",
+      "title": "Agent de code",
+      "status": "in_progress",
+      "progress": 50,
+      "notes": null,
+      "deadline": null
+    }
+  ]
+}

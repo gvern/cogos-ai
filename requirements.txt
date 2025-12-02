@@ -17,3 +17,20 @@ sounddevice  # Alternative to pyaudio
 soundfile  # Pour enregistrer/lire des fichiers audio
 streamlit_lottie  # For Lottie animations in UI
 altair  # For data visualization
+
+# Shared Infrastructure Dependencies
+httpx>=0.25.0              # async HTTP client for API communication
+aiofiles>=23.2.0           # async file operations
+cryptography>=41.0.0       # encryption for knowledge base backups
+pydantic>=2.5.0            # data validation and serialization
+pyttsx3>=2.90              # text-to-speech for unified voice system
+requests>=2.31.0           # HTTP requests for API communication
+asyncio-mqtt>=0.16.0       # async MQTT client for message bus
+websockets>=12.0           # WebSocket support for real-time communication
+redis>=5.0.0               # shared cache and message queue
+psutil>=5.9.0              # system monitoring for ecosystem health
+typing-extensions>=4.8.0   # enhanced typing support
+python-dotenv>=1.0.0       # environment variable management
+structlog>=23.2.0          # structured logging for ecosystem
+tenacity>=8.2.0            # retry mechanisms for distributed calls
+schedule>=1.2.0            # task scheduling for ecosystem jobs

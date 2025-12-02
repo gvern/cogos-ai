@@ -1,0 +1,65 @@
+# CogOS Knowledge Ingestion Configuration
+
+# File system crawler settings
+file_system:
+  base_path: "/Users/gustavevernay"
+  exclude_paths:
+    - "/Library"
+    - "/System"
+    - "/.Trash"
+    - "/Applications"
+  include_hidden: false
+  max_depth: 10
+  
+# Digital library settings
+digital_library:
+  enabled: true
+  sources:
+    - kindle
+    - pdf_library
+    - research_papers
+  
+# Cloud drives settings  
+cloud_drives:
+  enabled: false
+  providers:
+    - google_drive
+    - dropbox
+    - icloud
+
+# Application data settings
+applications:
+  enabled: true
+  sources:
+    - browser_bookmarks
+    - notes_apps
+    - email_archives
+
+# Content processing settings
+processing:
+  batch_size: 10
+  timeout_seconds: 300
+  max_file_size_mb: 100
+  supported_formats:
+    - pdf
+    - docx
+    - txt
+    - md
+    - jpg
+    - png
+    - mp3
+    - mp4
+
+# Quality control settings
+quality_control:
+  min_text_length: 50
+  max_text_length: 1000000
+  language_detection: true
+  content_validation: true
+  
+# Storage settings
+storage:
+  backend: "chromadb"
+  chunk_size: 1000
+  chunk_overlap: 200
+  embedding_model: "text-embedding-ada-002"

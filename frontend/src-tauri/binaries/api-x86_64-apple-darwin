@@ -1,0 +1,15 @@
+#!/bin/bash
+# CogOS AI Backend Launcher
+# Uses the local virtual environment to run the server
+
+# Absolute path to project root (hardcoded for this machine)
+PROJECT_ROOT="/Users/gustavevernay/Library/Mobile Documents/com~apple~CloudDocs/Desktop/Projets/Perso/cogos-ai"
+
+cd "$PROJECT_ROOT"
+
+# Activate venv
+source venv/bin/activate
+
+# Run uvicorn
+# We use exec to replace the shell process with python
+exec python3 -m uvicorn app.api.main:app --host 127.0.0.1 --port 8000

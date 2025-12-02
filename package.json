@@ -1,0 +1,17 @@
+{
+  "name": "cogos-ai",
+  "version": "1.0.0",
+  "description": "CogOS AI Platform",
+  "scripts": {
+    "dev": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:all": "concurrently \"npm run dev\" \"npm run dev:backend\"",
+    "install:all": "npm install && cd frontend && npm install && cd ../backend && npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "class-variance-authority": "^0.7.1"
+  }
+}

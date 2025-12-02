@@ -1,0 +1,27 @@
+# CogOS Configuration
+project_name: "CogOS - Personal Cognitive Operating System"
+version: "1.0.0"
+
+# Application structure
+app:
+  api:
+    host: "127.0.0.1"
+    port: 8000
+    reload: true
+  web:
+    static_files: "app/web"
+  core:
+    memory_store: "data"
+    embeddings: "embeddings"
+
+# Data directories
+data:
+  user_data: "data"
+  memory: "memory"
+  ingested: "ingested"
+  embeddings: "embeddings"
+
+# Development
+development:
+  debug: true
+  auto_reload: true

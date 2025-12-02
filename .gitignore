@@ -10,7 +10,7 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
+/lib/
 lib64/
 parts/
 sdist/
@@ -21,17 +21,102 @@ wheels/
 *.egg
 
 # Virtual Environment
+.venv/
 venv/
 ENV/
 env/
 .env
+.env.*
 
-# IDE
+# IDE & Editors
 .idea/
 .vscode/
 *.swp
 *.swo
+*~
+.DS_Store
 
-# Project specific
+# CogOS Project Specific
 memory/context_mcp.json
 *.log
+logs/
+app/core/embeddings/
+app/api/embeddings/
+embeddings/chroma/*.sqlite3*
+embeddings/chroma/*.parquet
+embeddings/*.index
+ingested/
+performance-baseline.*
+*.bak
+
+# API Keys & Secrets
+config/secrets.py
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Node.js
+node_modules/
+.pnp/
+.pnp.js
+# Keep package-lock.json tracked for consistent installs
+# package-lock.json
+# yarn.lock
+
+# Testing
+coverage/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Build outputs
+.next/
+out/
+build/
+dist/
+*.tsbuildinfo
+
+# System files
+*.pem
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+.tmp/
+*.html
+!index.html
+simple_constellation_test.html
+constellation_viewer.html
+3d_constellation.html
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+debug.log
+
+# ChromaDB data
+embeddings/chroma/
+chroma/
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+*.ipynb
+
+# App-specific generated files
+app/api/__pycache__/
+app/core/__pycache__/
+*.sqlite3
+*.db
+*\ 2.py
+postcss.config 2.js
+
+# Test artifacts
+.pytest_cache/
+test_*.pyc
+*_test.pyc
+
+# Shell scripts execution logs
+*.sh.log

@@ -1,0 +1,119 @@
+{
+  "timestamp": "2025-05-27T01:31:21.518858",
+  "api_performance": {
+    "/ping": {
+      "status": "failed",
+      "error_rate": 1.0
+    },
+    "/health": {
+      "status": "failed",
+      "error_rate": 1.0
+    },
+    "/api/memories": {
+      "status": "failed",
+      "error_rate": 1.0
+    },
+    "/api/contexts": {
+      "status": "failed",
+      "error_rate": 1.0
+    },
+    "/api/agent/actions": {
+      "status": "failed",
+      "error_rate": 1.0
+    },
+    "/api/knowledge-graph": {
+      "status": "failed",
+      "error_rate": 1.0
+    },
+    "/api/stats": {
+      "status": "failed",
+      "error_rate": 1.0
+    }
+  },
+  "system_metrics": {
+    "cpu_usage": {
+      "avg_percent": 66.33,
+      "min_percent": 33.2,
+      "max_percent": 95.9,
+      "median_percent": 69.6
+    },
+    "memory_usage": {
+      "avg_mb": 8811.59,
+      "min_mb": 8760.49,
+      "max_mb": 8870.53,
+      "median_mb": 8815.38
+    },
+    "disk_io": {
+      "read_count": 52843871,
+      "write_count": 13485624,
+      "read_bytes": 658658304000,
+      "write_bytes": 690440187904,
+      "read_time": 55813046,
+      "write_time": 23764753
+    },
+    "network_io": {
+      "bytes_sent": 1008124928,
+      "bytes_recv": 2001670144,
+      "packets_sent": 3664892,
+      "packets_recv": 9488999,
+      "errin": 0,
+      "errout": 8,
+      "dropin": 0,
+      "dropout": 0
+    }
+  },
+  "frontend_metrics": {
+    "total_size_mb": 17.865,
+    "individual_bundles": {
+      "next-font-manifest.js": 0.0,
+      "interception-route-rewrite-manifest.js": 0.0,
+      "server-reference-manifest.js": 0.0,
+      "middleware-react-loadable-manifest.js": 0.0,
+      "webpack-runtime.js": 0.011,
+      "middleware-build-manifest.js": 0.001,
+      "page.js": 0.014,
+      "page_client-reference-manifest.js": 0.005,
+      "@swc.js": 0.019,
+      "next.js": 2.378,
+      "lucide-react.js": 0.053,
+      "_error.js": 0.003,
+      "_app.js": 0.653,
+      "index.js": 0.019,
+      "_document.js": 0.002,
+      "dashboard.js": 3.495,
+      "_ssgManifest.js": 0.0,
+      "_buildManifest.js": 0.0,
+      "webpack.e8be85124c3170be.hot-update.js": 0.001,
+      "webpack.a3fe997885ee57dc.hot-update.js": 0.002,
+      "webpack.03c473b7f926d899.hot-update.js": 0.001,
+      "webpack.js": 0.054,
+      "main-app.js": 5.747,
+      "app-pages-internals.js": 0.128,
+      "polyfills.js": 0.107,
+      "main.js": 4.79,
+      "react-refresh.js": 0.075
+    },
+    "bundle_count": 32,
+    "js_files": 32,
+    "css_files": 0
+  },
+  "baseline_targets": {
+    "api_response_time_ms": 50,
+    "memory_usage_mb": 200,
+    "cpu_usage_percent": 30,
+    "frontend_bundle_size_mb": 1,
+    "fps_target": 60
+  },
+  "total_measurement_time_seconds": 37.55,
+  "assessment": {
+    "api_status": "unknown",
+    "system_status": "needs_improvement",
+    "frontend_status": "needs_improvement",
+    "overall_grade": "C",
+    "recommendations": [
+      "Memory usage is high - consider optimization",
+      "CPU usage is high - consider optimization",
+      "Frontend bundle size is too large - implement code splitting"
+    ]
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "file_system": {
+    "enabled": true,
+    "watch_directories": [
+      "/Users/gustavevernay/Desktop/Projets/Perso/cogos-ai/data",
+      "/Users/gustavevernay/Documents"
+    ],
+    "supported_formats": [
+      "pdf", "docx", "doc", "txt", "md", "rtf",
+      "pptx", "ppt", "xlsx", "xls", "csv",
+      "jpg", "jpeg", "png", "tiff", "bmp",
+      "mp3", "wav", "mp4", "mov", "avi",
+      "epub", "mobi", "html", "xml"
+    ],
+    "max_file_size_mb": 100,
+    "exclude_patterns": [
+      "*.tmp", "*.cache", "*.log", ".*", "__pycache__"
+    ]
+  },
+  
+  "digital_library": {
+    "enabled": true,
+    "library_paths": [
+      "/Users/gustavevernay/Desktop/Projets/Perso/cogos-ai/data/books",
+      "/Users/gustavevernay/Desktop/Projets/Perso/cogos-ai/data/notes"
+    ],
+    "auto_categorize": true,
+    "extract_metadata": true
+  },
+  
+  "cloud_drives": {
+    "google_drive": {
+      "enabled": false,
+      "credentials_path": "config/google_credentials.json",
+      "sync_folder": "CogOS Knowledge",
+      "auto_sync_interval": 60
+    },
+    "dropbox": {
+      "enabled": false,
+      "access_token": "",
+      "sync_folder": "/CogOS Knowledge",
+      "auto_sync_interval": 60
+    }
+  },
+  
+  "applications": {
+    "browser": {
+      "enabled": true,
+      "extract_bookmarks": true,
+      "extract_history": false,
+      "browsers": ["chrome", "firefox", "safari"]
+    },
+    "notes": {
+      "enabled": true,
+      "obsidian_vault": "",
+      "notion_token": "",
+      "evernote_path": ""
+    }
+  },
+  
+  "processing": {
+    "chunking_strategy": "semantic",
+    "chunk_size": 1000,
+    "chunk_overlap": 200,
+    "quality_level": "standard",
+    "extract_metadata": true,
+    "ocr_enabled": true,
+    "language_detection": true,
+    "entity_extraction": true,
+    "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+    "batch_size": 32,
+    "max_concurrent_jobs": 5
+  },
+  
+  "quality_control": {
+    "min_content_length": 100,
+    "max_content_length": 50000,
+    "language_filter": ["en", "fr"],
+    "content_quality_threshold": 0.7,
+    "deduplication_enabled": true,
+    "similarity_threshold": 0.9
+  },
+  
+  "storage": {
+    "vector_db": {
+      "type": "chromadb",
+      "persist_directory": "/Users/gustavevernay/Desktop/Projets/Perso/cogos-ai/backend/embeddings/chroma",
+      "collection_name": "cogos_knowledge"
+    },
+    "metadata_db": {
+      "type": "sqlite",
+      "database_url": "sqlite:///backend/embeddings/metadata.db"
+    },
+    "file_storage": {
+      "base_path": "/Users/gustavevernay/Desktop/Projets/Perso/cogos-ai/ingested",
+      "organize_by_date": true,
+      "preserve_structure": true
+    }
+  },
+  
+  "monitoring": {
+    "log_level": "INFO",
+    "performance_tracking": true,
+    "error_notifications": true,
+    "stats_collection": true
+  },
+  
+  "security": {
+    "scan_for_sensitive_data": true,
+    "pii_detection": true,
+    "content_filtering": true,
+    "encryption_at_rest": false
+  }
+}
